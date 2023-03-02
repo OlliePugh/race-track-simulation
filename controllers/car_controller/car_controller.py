@@ -40,7 +40,7 @@ while robot.step(timestep) != -1:
     keys_down = []
     keys_down.append(keyboard.getKey())
     keys_down.append(keyboard.getKey())
-    forward_speed = 80.0
+    forward_speed = 60
 
  #   Move the car based on the keyboard input
     if Keyboard.UP in keys_down:

@@ -9,18 +9,18 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.12699059592836048 0.05341855434744611 0.9904644600374054 2.1457639016787056
-  position 0.8017337765173361 -1.1343533146919798 0.5148279363848403
+  orientation 0.28456178788743647 0.3296811178445609 -0.9001860637729661 1.6744934462281507
+  position 1.607157490599757 -0.4929300687079074 0.5052005074902086
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 4 4
+  floorSize 7 4.55
 }
 Robot {
-  translation 0 0.18 0.05
+  translation 1.77 -1.12 0.05
   rotation 0 1 0 0
   children [
     Group {
@@ -193,16 +193,378 @@ Robot {
   }
   controller "car_controller"
 }
-Solid {
-  translation 0 0 0.02
+Transform {
   children [
-    DEF track1-bounding Shape {
-      appearance OsbWood {
-      }
-      geometry Box {
-        size 1.2 0.006 0.05
-      }
+    Solid {
+      translation 1.19 -2.05 0.02
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.01 -2.05 0.02
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -1.21 -2.05 0.02
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(3)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -2.23826 -1.61746 0.02
+      rotation 0 0 1 -0.785395307179586
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(4)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -2.96198 -0.6752 0.02
+      rotation 0 0 1 -1.047195307179586
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(5)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -3.26698 0.441746 0.02
+      rotation 0 0 1 1.5708
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(6)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -2.84278 1.45277 0.02
+      rotation 0 0 1 -2.3561953071795863
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(7)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -1.82317 1.87238 0.02
+      rotation 0 0 -1 8.23753e-07
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(8)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.441295 1.51579 0.02
+      rotation 0 0 1 -0.785395307179586
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(9)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.0170328 -0.0963247 0.02
+      rotation 0 0 1 -0.785395307179586
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(11)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.958482 -1.03777 0.02
+      rotation 0 0 1 1.5708
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.61 0.006 0.05
+          }
+        }
+      ]
+      name "solid(24)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 0.395365 -0.453634 0.02
+      rotation 0 0 -1 0.64
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.5 0.006 0.05
+          }
+        }
+      ]
+      name "solid(16)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 1.99704 -1.83922 0.02
+      rotation 0 0 1 0.785401
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(12)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 1.99704 -0.821114 0.02
+      rotation 0 0 1 2.3562
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(13)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 2.20704 -1.32969 0.02
+      rotation 0 0 1 -1.5707953071795862
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(14)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.93594 1.80006 0.02
+      rotation 0 0 -1 0.261797
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 0.6 0.006 0.05
+          }
+        }
+      ]
+      name "solid(10)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.23 0.71 0.02
+      rotation 0 0 1 1.5708
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 1.19 -0.6 0.02
+      rotation 0 0 -1 -5.307179586466759e-06
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(15)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 0.7 -1.34 0.02
+      rotation 0 0 -1 -5.307179586466759e-06
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(17)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.5 -1.34 0.02
+      rotation 0 0 -1 -5.307179586466759e-06
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(19)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -1.61052 -1.03948 0.02
+      rotation 0 0 1 -0.523595307179586
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(20)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -2.14982 -0.13448 0.02
+      rotation 0 0 1 1.5708
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(21)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -1.54982 0.46552 0.02
+      rotation 0 0 1 -3.1415853071795863
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(22)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation -0.95982 -0.13448 0.02
+      rotation 0 0 -1 1.57079
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(23)"
+      boundingObject USE track1-bounding
+    }
+    Solid {
+      translation 1.19 -0.6 0.02
+      rotation 0 0 -1 -5.307179586466759e-06
+      children [
+        DEF track1-bounding Shape {
+          appearance OsbWood {
+          }
+          geometry Box {
+            size 1.2 0.006 0.05
+          }
+        }
+      ]
+      name "solid(18)"
+      boundingObject USE track1-bounding
     }
   ]
-  boundingObject USE track1-bounding
 }
