@@ -1,0 +1,208 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/TireRubber.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/OsbWood.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.12699059592836048 0.05341855434744611 0.9904644600374054 2.1457639016787056
+  position 0.8017337765173361 -1.1343533146919798 0.5148279363848403
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 4 4
+}
+Robot {
+  translation 0 0.18 0.05
+  rotation 0 1 0 0
+  children [
+    Group {
+      children [
+        Solid {
+          translation 0.05 0 0
+          children [
+            DEF pi Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+              }
+              geometry Box {
+                size 0.09 0.055 0.03
+              }
+            }
+          ]
+          name "solid(5)"
+        }
+        Solid {
+          translation 0 0 -0.02
+          children [
+            DEF base Shape {
+              appearance PBRAppearance {
+                baseColor 0 0 0
+              }
+              geometry Box {
+                size 0.2 0.08 0.02
+              }
+            }
+          ]
+          name "solid(4)"
+        }
+      ]
+    }
+    DEF front_right_hinge Hinge2Joint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.0645468 0.04 -0.0267332
+      }
+      jointParameters2 JointParameters {
+        axis 0 1 0
+      }
+      device [
+        DEF FRServo RotationalMotor {
+          name "front_right_servo"
+        }
+      ]
+      endPoint Solid {
+        translation -0.0645468 0.04 -0.0267332
+        rotation 1 0 0 1.5708
+        children [
+          DEF front_left_wheel_shape Shape {
+            appearance TireRubber {
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.0125
+            }
+          }
+        ]
+        name "solid(2)"
+        boundingObject USE front_left_wheel_shape
+        physics Physics {
+        }
+      }
+    }
+    DEF front_left_hinge Hinge2Joint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.0645456 -0.04 -0.0261826
+      }
+      jointParameters2 JointParameters {
+        axis 0 1 0
+      }
+      device [
+        DEF FLServo RotationalMotor {
+          name "front_left_servo"
+        }
+      ]
+      endPoint Solid {
+        translation -0.0645456 -0.04 -0.0261826
+        rotation 0.9999961310822082 -0.001967200136269051 -0.001966708986824902 4.712383331178661
+        children [
+          DEF front_right_wheel_shape Shape {
+            appearance TireRubber {
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.0125
+            }
+          }
+        ]
+        name "solid(3)"
+        boundingObject USE front_right_wheel_shape
+        physics Physics {
+        }
+      }
+    }
+    DEF rear_right_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 -1 0
+        anchor 0.0754532 0.04 -0.0267332
+      }
+      device [
+        RotationalMotor {
+          name "right_wheel_motor"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.0754532 0.04 -0.0267332
+        rotation 1 0 0 1.5708
+        children [
+          DEF rear_right_wheel_shape Shape {
+            appearance TireRubber {
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.0125
+            }
+          }
+        ]
+        boundingObject USE rear_right_wheel_shape
+        physics Physics {
+        }
+      }
+    }
+    DEF rear_left_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 -1 0
+        anchor 0.0754531317196739 -0.04000000620125117 -0.026733221149208525
+      }
+      device [
+        DEF left_wheel_motor RotationalMotor {
+          name "left_wheel_motor"
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.0754531317196739 -0.04000000620125117 -0.026733221149208525
+        rotation 0.9999961310822082 -0.001967200136269051 -0.001966708986824902 4.712383331178661
+        children [
+          DEF rear_left_wheel_shape Shape {
+            appearance TireRubber {
+            }
+            geometry Cylinder {
+              height 0.01
+              radius 0.0125
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE rear_left_wheel_shape
+        physics Physics {
+        }
+      }
+    }
+  ]
+  boundingObject Transform {
+    translation 0 0 -0.005
+    children [
+      Box {
+        size 0.2 0.08 0.05
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.25
+  }
+  controller "car_controller"
+}
+Solid {
+  translation 0 0 0.02
+  children [
+    DEF track1-bounding Shape {
+      appearance OsbWood {
+      }
+      geometry Box {
+        size 1.2 0.006 0.05
+      }
+    }
+  ]
+  boundingObject USE track1-bounding
+}
