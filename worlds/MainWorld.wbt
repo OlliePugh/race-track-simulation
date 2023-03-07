@@ -7,25 +7,36 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/OsbWood.proto"
 
 WorldInfo {
+  basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.28456178788743647 0.3296811178445609 -0.9001860637729661 1.6744934462281507
-  position 1.607157490599757 -0.4929300687079074 0.5052005074902086
+  orientation -0.319336334094465 -0.17636603896360475 0.9310850262072721 4.0915321976617385
+  position 2.487055950657228 0.10797958649459476 1.0653685934065968
+  follow "robot_clone"
+  followSmoothness 0.01
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
+  contactMaterial "floor"
   floorSize 7 4.55
+  wallThickness 0.1
 }
 Robot {
-  translation 1.77 -1.12 0.05
+  translation 1.42 -0.5 0.0389797
   rotation 0 1 0 0
   children [
+    Camera {
+      translation -0.09 0 0
+      rotation 0 0 1 3.14159
+      width 300
+      height 150
+    }
     Group {
       children [
-        Solid {
+        Transform {
           translation 0.05 0 0
           children [
             DEF pi Shape {
@@ -33,13 +44,12 @@ Robot {
                 baseColor 0 0 0
               }
               geometry Box {
-                size 0.09 0.055 0.03
+                size 0.09 0.051 0.03
               }
             }
           ]
-          name "solid(5)"
         }
-        Solid {
+        Transform {
           translation 0 0 -0.02
           children [
             DEF base Shape {
@@ -47,11 +57,10 @@ Robot {
                 baseColor 0 0 0
               }
               geometry Box {
-                size 0.2 0.08 0.02
+                size 0.2 0.06 0.02
               }
             }
           ]
-          name "solid(4)"
         }
       ]
     }
@@ -82,6 +91,7 @@ Robot {
           }
         ]
         name "solid(2)"
+        contactMaterial "tyre"
         boundingObject USE front_left_wheel_shape
         physics Physics {
         }
@@ -114,6 +124,7 @@ Robot {
           }
         ]
         name "solid(3)"
+        contactMaterial "tyre"
         boundingObject USE front_right_wheel_shape
         physics Physics {
         }
@@ -127,6 +138,7 @@ Robot {
       device [
         RotationalMotor {
           name "right_wheel_motor"
+          acceleration 5
           maxVelocity 100
         }
       ]
@@ -143,6 +155,7 @@ Robot {
             }
           }
         ]
+        contactMaterial "tyre"
         boundingObject USE rear_right_wheel_shape
         physics Physics {
         }
@@ -156,6 +169,7 @@ Robot {
       device [
         DEF left_wheel_motor RotationalMotor {
           name "left_wheel_motor"
+          acceleration 5
           maxVelocity 100
         }
       ]
@@ -173,6 +187,7 @@ Robot {
           }
         ]
         name "solid(1)"
+        contactMaterial "tyre"
         boundingObject USE rear_left_wheel_shape
         physics Physics {
         }
@@ -183,17 +198,238 @@ Robot {
     translation 0 0 -0.005
     children [
       Box {
-        size 0.2 0.08 0.05
+        size 0.2 0.06 0.05
       }
     ]
   }
   physics Physics {
-    density -1
-    mass 0.25
+  }
+}
+Robot {
+  translation 1.77 -1.05 0.0389797
+  children [
+    Camera {
+      translation -0.09 0 0
+      rotation 0 0 1 3.14159
+      width 300
+      height 150
+    }
+    Group {
+      children [
+        Transform {
+          translation 0.05 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.333333 0.333333 1
+                metalness 0.8
+              }
+              geometry Box {
+                size 0.09 0.051 0.03
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0 -0.02
+          children [
+            DEF base Shape {
+              appearance PBRAppearance {
+                baseColor 0.333333 0.333333 1
+                metalness 0.8
+              }
+              geometry Box {
+                size 0.2 0.06 0.02
+              }
+            }
+          ]
+        }
+      ]
+    }
+    DEF front_right_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.0645468 0.04 -0.0267332
+      }
+      device [
+        DEF FRServo RotationalMotor {
+          name "front_right_servo"
+        }
+      ]
+      endPoint Solid {
+        translation -0.0645468 0.04 -0.0267332
+        children [
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 1 0
+            }
+            endPoint Solid {
+              rotation 0 1 0 0
+              children [
+                DEF wheel_shape Transform {
+                  rotation 1 0 0 -1.5707953071795862
+                  children [
+                    Shape {
+                      appearance TireRubber {
+                      }
+                      geometry Cylinder {
+                        height 0.01
+                        radius 0.0125
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE wheel_shape
+              physics Physics {
+              }
+            }
+          }
+        ]
+        boundingObject Box {
+          size 0.01 0.01 0.01
+        }
+        physics Physics {
+        }
+      }
+    }
+    DEF front_left_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.0645468 -0.04 -0.0267332
+      }
+      device [
+        DEF FLServo RotationalMotor {
+          name "front_left_servo"
+        }
+      ]
+      endPoint Solid {
+        translation -0.0645468 -0.04 -0.0267332
+        children [
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              axis 0 1 0
+            }
+            endPoint Solid {
+              rotation 0 1 0 0
+              children [
+                DEF wheel_shape Transform {
+                  rotation 1 0 0 -1.5707953071795862
+                  children [
+                    Shape {
+                      appearance TireRubber {
+                      }
+                      geometry Cylinder {
+                        height 0.01
+                        radius 0.0125
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE wheel_shape
+              physics Physics {
+              }
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject Box {
+          size 0.01 0.01 0.01
+        }
+        physics Physics {
+        }
+      }
+    }
+    DEF rear_right_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 -1 0
+        anchor 0.0754532 0.04 -0.0267332
+      }
+      device [
+        RotationalMotor {
+          name "right_wheel_motor"
+          acceleration 5
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.0754532 0.04 -0.0267332
+        rotation 0 -1 0 0
+        children [
+          DEF wheel_shape Transform {
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Shape {
+                appearance TireRubber {
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.0125
+                }
+              }
+            ]
+          }
+        ]
+        name "solid(2)"
+        contactMaterial "tyre"
+        boundingObject USE wheel_shape
+        physics Physics {
+        }
+      }
+    }
+    DEF rear_left_hinge HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 -1 0
+        anchor 0.0754532 -0.04 -0.0267332
+      }
+      device [
+        RotationalMotor {
+          name "left_wheel_motor"
+          acceleration 5
+          maxVelocity 100
+        }
+      ]
+      endPoint Solid {
+        translation 0.0754532 -0.04 -0.0267332
+        rotation 0 -1 0 0
+        children [
+          DEF wheel_shape Transform {
+            rotation 1 0 0 -1.5707953071795862
+            children [
+              Shape {
+                appearance TireRubber {
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.0125
+                }
+              }
+            ]
+          }
+        ]
+        name "solid(3)"
+        contactMaterial "tyre"
+        boundingObject USE wheel_shape
+        physics Physics {
+        }
+      }
+    }
+  ]
+  name "robot_clone"
+  boundingObject Transform {
+    translation 0 0 -0.005
+    children [
+      Box {
+        size 0.2 0.06 0.05
+      }
+    ]
+  }
+  physics Physics {
   }
   controller "car_controller"
 }
-Transform {
+DEF Track Transform {
   children [
     Solid {
       translation 1.19 -2.05 0.02

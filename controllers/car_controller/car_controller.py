@@ -21,14 +21,14 @@ right_servo.setPosition(float('inf'))
 left_motor.setVelocity(0.0)
 right_motor.setVelocity(0.0)
 
-# camera = robot.getDevice('camera')
-# camera.enable(timestep)
+camera = robot.getDevice('camera')
+camera.enable(timestep)
 
 # Set the camera properties
-# camera_width = camera.getWidth()
-# camera_height = camera.getHeight()
-# camera_fov = camera.getFov()
-# camera_framerate = 24
+camera_width = camera.getWidth()
+camera_height = camera.getHeight()
+camera_fov = camera.getFov()
+camera_framerate = 24
 
 # Initialize the keyboard
 keyboard = Keyboard()

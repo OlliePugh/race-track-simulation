@@ -1,0 +1,21 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "../protos/cartRobot.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.35246874480111484 0.3515901245972165 0.8672659155207476 1.7152053978205184
+  position -0.08818764134318151 -1.945774454265565 2.2169941838376825
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+}
+cartRobot {
+}
