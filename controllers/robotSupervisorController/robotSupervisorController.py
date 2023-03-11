@@ -28,7 +28,7 @@ class CarRobot(RobotSupervisorEnv):
         self.observation_space = Box(low=np.array([ 0,      0,      0,      -np.inf]),
                                      high=np.array([np.inf, np.inf, np.inf, np.inf]),
                                      dtype=np.float64)
-        self.action_space = Discrete(3) # forward, forward left, forward right, backward, backward left, backward right
+        self.action_space = Discrete(6) # forward, forward left, forward right, backward, backward left, backward right
 
         self.robot = self.getSelf()  # Grab the robot reference from the supervisor to access various robot methods
         
@@ -83,7 +83,11 @@ class CarRobot(RobotSupervisorEnv):
         line_completion = self.waypoints.project(point)
         
         reward = (line_completion - self.last_waypoint_score)*5
-        if reward < 0:
+        # was at end on last step and is now at start on this step
+        is_wrap_around = reward < 0 and self.last_waypoint_score / self.waypoints.length > 0.95 and line_completion / self.waypoints.length < 0.05
+        if is_wrap_around:
+            reward = 10
+        elif reward < 0:  # the car just went backwards
             reward *= 10  # increase the negative reward
            
         
@@ -160,7 +164,7 @@ class CarRobot(RobotSupervisorEnv):
 
 
 env = CarRobot()
-agent = PPOAgent(numberOfInputs=env.observation_space.shape[0], numberOfActorOutputs=env.action_space.n, gamma=0.5)
+agent = PPOAgent(numberOfInputs=env.observation_space.shape[0], numberOfActorOutputs=env.action_space.n, gamma=0.99, use_cuda=False)
 solved = False
 episodeCount = 0
 episodeLimit = 2000

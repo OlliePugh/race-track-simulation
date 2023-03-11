@@ -10,9 +10,10 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.5031715770801665 -0.0057745610833652 0.8641672398690851 3.1614325529963123
-  position 4.664334773650205 0.3907571444874569 8.562978568175778
+  orientation -0.6698300112073837 -0.08517252002506978 0.7376133119179016 3.328632782204804
+  position 0.6317911995617802 -0.026475682712394255 9.685810066454108
   follow "robot_clone"
+  followType "None"
   followSmoothness 0.01
 }
 TexturedBackground {
@@ -260,7 +261,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.0645468 0.04 -0.0267332
-        rotation 1 -5.293632702081944e-20 -4.941268537220461e-20 1.5707999999999998
+        rotation 1 2.9509543007836872e-18 8.73855854036982e-19 1.5707999999998745
         children [
           DEF front_left_wheel_shape Shape {
             appearance TireRubber {
@@ -293,7 +294,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.0645456 -0.04 -0.0261826
-        rotation 0.9999961310822084 -0.0019672001362689576 -0.001966708986824892 4.712383331178663
+        rotation 0.9999961310822084 -0.0019672001362597328 -0.0019667089868192376 4.712383331178666
         children [
           DEF front_right_wheel_shape Shape {
             appearance TireRubber {
@@ -325,7 +326,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.0754532 0.04 -0.0267332
-        rotation 1 -1.489524947768626e-12 1.4895304191093103e-12 1.5708
+        rotation 1 -5.0766702592985155e-12 5.076688906983828e-12 1.5708
         children [
           DEF rear_right_wheel_shape Shape {
             appearance TireRubber {
@@ -356,7 +357,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.0754531317196739 -0.04000000620125117 -0.026733221149208525
-        rotation 0.9999961310822084 -0.001967200136268995 -0.0019667089868248516 4.712383331178661
+        rotation 0.9999961310822084 -0.001967200136270172 -0.001966708986826001 4.712383331178698
         children [
           DEF rear_left_wheel_shape Shape {
             appearance TireRubber {
@@ -387,8 +388,8 @@ Robot {
   }
 }
 Robot {
-  translation -0.21609 -0.73324 0.0389797
-  rotation 0 0 1 -1.047195307179586
+  translation -0.0145339 -0.91202 0.0389797
+  rotation 0 0 1 -1.0472053071795866
   children [
     Lidar {
       translation -0.07 0 0
@@ -396,6 +397,7 @@ Robot {
       horizontalResolution 3
       fieldOfView 1.5707
       numberOfLayers 1
+      maxRange 3
       projection "planar"
     }
     Camera {

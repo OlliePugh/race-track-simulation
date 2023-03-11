@@ -179,13 +179,19 @@ class PPOAgent:
 class Actor(nn.Module):
     def __init__(self, numberOfInputs, numberOfOutputs):
         super(Actor, self).__init__()
-        self.fc1 = nn.Linear(numberOfInputs, 20)
-        self.fc2 = nn.Linear(20, 20)
-        self.action_head = nn.Linear(20, numberOfOutputs)
+        self.fc1 = nn.Linear(numberOfInputs, 128)
+        self.fc2 = nn.Linear(128, 128)
+        self.fc3 = nn.Linear(128, 128)
+        self.fc4 = nn.Linear(128, 128)
+        # self.fc2 = nn.Linear(20, 20)
+        self.action_head = nn.Linear(128, numberOfOutputs)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
+        x = F.relu(self.fc4(x))
+        # x = F.relu(self.fc2(x))
         action_prob = F.softmax(self.action_head(x), dim=1)
         return action_prob
 
@@ -193,12 +199,16 @@ class Actor(nn.Module):
 class Critic(nn.Module):
     def __init__(self, numberOfInputs):
         super(Critic, self).__init__()
-        self.fc1 = nn.Linear(numberOfInputs, 10)
-        self.fc2 = nn.Linear(10, 10)
-        self.state_value = nn.Linear(10, 1)
+        self.fc1 = nn.Linear(numberOfInputs, 128)
+        self.fc2 = nn.Linear(128, 128)
+        self.fc3 = nn.Linear(128, 128)
+        self.fc4 = nn.Linear(128, 128)
+        self.state_value = nn.Linear(128, 1)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
+        x = F.relu(self.fc4(x))
         value = self.state_value(x)
         return value
