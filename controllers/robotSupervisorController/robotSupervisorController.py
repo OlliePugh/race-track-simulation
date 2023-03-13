@@ -45,21 +45,11 @@ class CarRobot(RobotSupervisorEnv):
         
         self.left_servo.setPosition(float('inf'))
         self.right_servo.setPosition(float('inf'))
-        
-        # Set the velocity of the motors
-        # self.left_motor.setVelocity(60.0)
-        # self.right_motor.setVelocity(60.0)
 
         self.lidar.enable(self.timestep)
-        
-        # self.poleEndpoint = self.robot.getFromProtoDef("POLE_ENDPOINT")
+       
         self.wheels = []
         self.waypoints = get_waypoints(self.getFromDef("waypoints").getField("children"))
-        # for wheelName in ['wheel1', 'wheel2', 'wheel3', 'wheel4']:
-            # wheel = self.getDevice(wheelName)  # Get the wheel handle
-            # wheel.setPosition(float('inf'))  # Set starting position
-            # wheel.setVelocity(0.0)  # Zero out starting velocity
-            # self.wheels.append(wheel)
 
         self.stepsPerEpisode = 2000  # Max number of steps per episode
         self.episodeScore = 0  # Score accumulated during an episode
@@ -78,8 +68,7 @@ class CarRobot(RobotSupervisorEnv):
 
     def get_reward(self, action=None):
         point = shPt(*self.robot.getPosition()[:-1])
-        
-        # line_comlpetion = self.waypoints.project(point)/self.waypoints.length
+           
         line_completion = self.waypoints.project(point)
         
         reward = (line_completion - self.last_waypoint_score)*5
@@ -87,27 +76,27 @@ class CarRobot(RobotSupervisorEnv):
         is_wrap_around = reward < 0 and self.last_waypoint_score / self.waypoints.length > 0.95 and line_completion / self.waypoints.length < 0.05
         if is_wrap_around:
             reward = 10
-        elif reward < 0:  # the car just went backwards
-            reward *= 10  # increase the negative reward
+        elif reward < 0:  # the car progressed backwards
+            reward *= 10  # multiply the already negative reward
            
         
-        self.last_waypoint_score = line_completion
+        self.last_waypoint_score = line_completion  # save the last point
         return reward
 
-    def is_done(self):
-        if self.episodeScore > 195.0:
-            print("ending drue to score?")
+    def is_done(self):  # do we end this episode here?
+        if self.episodeScore > 200:
             return True
         
         range_image = self.lidar.getRangeImage()
         if any(value < 0.1 for value in range_image):  # the car is too close to the walls
             return True
             
-        return False
+        return False  # no reason to stop (unless step limit hit)
 
-    def solved(self):
+    def solved(self):  # is the problem solved
         if len(self.episodeScoreList) > 100:  # Over 100 trials thus far
-            if np.mean(self.episodeScoreList[-100:]) > 195.0:  # Last 100 episodes' scores average value
+            print(np.mean(self.episodeScoreList[-100:]))
+            if np.mean(self.episodeScoreList[-100:]) > 150:  # Last 100 episodes' scores average value
                 return True
         return False
         
@@ -146,20 +135,11 @@ class CarRobot(RobotSupervisorEnv):
                 self.left_motor.setVelocity(-60)
                 self.right_motor.setPosition(float('inf'))
                 self.right_motor.setVelocity(-60)
-        return
-        if action == 0:
-            motorSpeed = 5.0
-        else:
-            motorSpeed = -5.0
 
-        for i in range(len(self.wheels)):
-            self.wheels[i].setPosition(float('inf'))
-            self.wheels[i].setVelocity(motorSpeed)
-
-    def render(self, mode='human'):
+    def render(self, mode='human'):  # required for deepbots library?
         print("render() is not used")
 
-    def get_info(self):
+    def get_info(self): # required for deepbots library?
         return None
 
 
