@@ -34,6 +34,8 @@ class CarRobot(RobotSupervisorEnv):
         self.robot = self.getSelf()  # Grab the robot reference from the supervisor to access various robot methods
         
         self.lidar = self.getDevice("lidar")
+        self.camera = self.getDevice('camera')
+        self.camera.enable(self.timestep)
         
         self.left_motor = self.getDevice('left_wheel_motor')
         self.right_motor = self.getDevice('right_wheel_motor')
