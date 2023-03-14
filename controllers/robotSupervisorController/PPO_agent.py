@@ -10,6 +10,14 @@ from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
 import numpy as np
 from torch import manual_seed
 from collections import namedtuple
+import wandb
+import os
+
+# start a new wandb run to track this script
+# wandb.init(
+#     # set the wandb project where this run will be logged
+#     project="online-racing-rl",
+# )
 
 Transition = namedtuple('Transition', ['state', 'action', 'a_log_prob', 'reward', 'next_state'])
 
@@ -38,7 +46,10 @@ class PPOAgent:
         # models
         self.actor_net = Actor(numberOfInputs, numberOfActorOutputs)
         self.critic_net = Critic(numberOfInputs)
-
+            
+        # wandb.watch(models=[self.actor_net, self.critic_net], log="all",)
+            
+            
         if self.use_cuda:
             self.actor_net.cuda()
             self.critic_net.cuda()
@@ -82,8 +93,12 @@ class PPOAgent:
         :param path: path to save the models
         :type path: str
         """
-        save(self.actor_net.state_dict(), path + '_actor.pkl')
-        save(self.critic_net.state_dict(), path + '_critic.pkl')
+        i = 0
+        while os.path.exists(path+"%s_actor.pkl" % i):
+            i += 1
+        print("saving as model number " + str(i))
+        save(self.actor_net.state_dict(), path + str(i)+'_actor.pkl')
+        save(self.critic_net.state_dict(), path + str(i)+'_critic.pkl')
 
     def load(self, path):
         """
@@ -171,6 +186,10 @@ class PPOAgent:
                 value_loss.backward()
                 nn.utils.clip_grad_norm_(self.critic_net.parameters(), self.max_grad_norm)
                 self.critic_net_optimizer.step()
+
+                # Log the losses for actor and critic networks
+                # wandb.log({"actor_loss": action_loss.item()})
+                # wandb.log({"critic_loss": value_loss.item()})
 
         # After each training step, the buffer is cleared
         del self.buffer[:]
