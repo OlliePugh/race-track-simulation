@@ -13,11 +13,13 @@ from collections import namedtuple
 import wandb
 import os
 
+# derived from https://github.com/aidudezzz/deepworlds
+
 # start a new wandb run to track this script
-# wandb.init(
-#     # set the wandb project where this run will be logged
-#     project="online-racing-rl",
-# )
+wandb.init(
+    # set the wandb project where this run will be logged
+    project="online-racing-rl",
+)
 
 Transition = namedtuple('Transition', ['state', 'action', 'a_log_prob', 'reward', 'next_state'])
 
@@ -47,7 +49,7 @@ class PPOAgent:
         self.actor_net = Actor(numberOfInputs, numberOfActorOutputs)
         self.critic_net = Critic(numberOfInputs)
             
-        # wandb.watch(models=[self.actor_net, self.critic_net], log="all",)
+        wandb.watch(models=[self.actor_net, self.critic_net], log="all",)
             
             
         if self.use_cuda:
@@ -148,6 +150,7 @@ class PPOAgent:
             R = r + self.gamma * R
             Gt.insert(0, R)
         Gt = tensor(Gt, dtype=torch_float)
+        wandb.log({"reward": R})
 
         # Send everything to cuda if used
         if self.use_cuda:
@@ -188,8 +191,9 @@ class PPOAgent:
                 self.critic_net_optimizer.step()
 
                 # Log the losses for actor and critic networks
-                # wandb.log({"actor_loss": action_loss.item()})
-                # wandb.log({"critic_loss": value_loss.item()})
+                wandb.log({"actor_loss": action_loss.item()})
+                wandb.log({"critic_loss": value_loss.item()})
+
 
         # After each training step, the buffer is cleared
         del self.buffer[:]
@@ -202,7 +206,6 @@ class Actor(nn.Module):
         self.fc2 = nn.Linear(128, 128)
         self.fc3 = nn.Linear(128, 128)
         self.fc4 = nn.Linear(128, 128)
-        # self.fc2 = nn.Linear(20, 20)
         self.action_head = nn.Linear(128, numberOfOutputs)
 
     def forward(self, x):
@@ -210,7 +213,6 @@ class Actor(nn.Module):
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
         x = F.relu(self.fc4(x))
-        # x = F.relu(self.fc2(x))
         action_prob = F.softmax(self.action_head(x), dim=1)
         return action_prob
 

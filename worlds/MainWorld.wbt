@@ -11,7 +11,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.6950363424885935 -0.010583989079353009 0.7188966975826546 3.1634905147977683
-  position 0.21254876880688867 0.5189176771543892 8.732986370697414
+  position -1.6895268152317526 0.912958537946645 9.388458324948918
   follow "robot_clone"
   followType "None"
   followSmoothness 0.01
@@ -263,7 +263,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.0645468 0.04 -0.0267332
-        rotation 0.9999999999939964 -2.450248825071194e-06 2.4502668845174387e-06 1.5708000000058737
+        rotation 0.9999999999939964 -2.450248825071192e-06 2.4502668845174387e-06 1.5708000000058737
         children [
           DEF front_left_wheel_shape Shape {
             appearance TireRubber {
@@ -298,7 +298,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.0645456 -0.04 -0.0261826
-        rotation 0.9999874541523032 -0.003542244885695009 -0.0035417565083768507 4.712374653398543
+        rotation 0.9999874541523032 -0.003542244885695004 -0.0035417565083768463 4.712374653398543
         children [
           DEF front_right_wheel_shape Shape {
             appearance TireRubber {
@@ -362,7 +362,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.0754531317196739 -0.04000000620125117 -0.026733221149208525
-        rotation 0.9999961310880752 -0.001967198644884618 -0.001966707495437602 4.712383331184583
+        rotation 0.9999961310880752 -0.0019671986448846165 -0.0019667074954375996 4.712383331184583
         children [
           DEF rear_left_wheel_shape Shape {
             appearance TireRubber {

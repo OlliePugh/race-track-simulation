@@ -4,6 +4,7 @@ from utilities import normalizeToRange, plotData
 from PPO_agent import PPOAgent, Transition
 import math
 
+# derived from https://github.com/aidudezzz/deepworlds
 
 from gym.spaces import Box, Discrete
 import numpy as np
@@ -105,7 +106,6 @@ class CarRobot(RobotSupervisorEnv):
         return [0.0 for _ in range(self.observation_space.shape[0])]
 
     def apply_action(self, action): 
-        # TODO replace this with an enum
         # 0 = FL
         # 1 = F
         # 2 = FR
@@ -190,8 +190,9 @@ def train(agent):
         print("Task is solved, deploying agent for testing...")
     agent.save("../models/")
 
+train(agent)
 observation = env.reset()
-agent.load("../models/success")
+# agent.load("../models/success")  # load a model
 while True:
     selectedAction, actionProb = agent.work(observation, type_="selectActionMax")
     observation, _, _, _ = env.step([selectedAction])

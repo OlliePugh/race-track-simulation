@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# derived from https://github.com/aidudezzz/deepworlds
 
 def normalizeToRange(value, minVal, maxVal, newMin, newMax, clip=False):
     """
